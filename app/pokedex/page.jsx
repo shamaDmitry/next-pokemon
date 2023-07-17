@@ -19,7 +19,7 @@ const Page = async () => {
   const pokemonData = await getData();
 
   return (
-    <div>
+    <div className="w-full bg-red-500">
       <SearchInput></SearchInput>
 
       <div className="flex justify-between mb-6">

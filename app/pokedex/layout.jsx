@@ -1,27 +1,11 @@
-'use client';
-
-import { useState } from "react";
-
-const PokedexLayout = ({ pokemonList, pokemon }) => {
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
-
+const PokedexLayout = ({ children }) => {
   return (
-    <div className="flex gap-8">
-      <div className="w-full">
-        <button
-          onClick={() => setSelectedPokemon(prevState => !prevState)}
-        >
-          select
-        </button>
+    <div className="flex gap-6">
+      {children}
 
-        {pokemonList}
+      <div className="w-full max-w-sm bg-gray-100 border">
+        ASIDE POKEMON
       </div>
-
-      {
-        selectedPokemon && <div className="w-full max-w-md">
-          {pokemon}
-        </div>
-      }
     </div>
   )
 }
