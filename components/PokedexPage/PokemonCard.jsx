@@ -1,5 +1,6 @@
 import Tag from "../core/atoms/Tag";
 import Image from "next/image";
+import Link from "next/link";
 
 async function getData(url) {
   const res = await fetch(url)
@@ -12,9 +13,11 @@ async function getData(url) {
 
 const PokemonCard = async ({ data }) => {
   const onePokemonData = await getData(data.url)
+  console.log('onePokemonData', onePokemonData);
 
   return (
-    <section
+    <Link
+      href={`/pokedex/${onePokemonData.id}`}
       className="flex flex-col items-center justify-center p-8 bg-white border shadow-xl rounded-xl"
     >
       <figure>
@@ -28,8 +31,8 @@ const PokemonCard = async ({ data }) => {
       </figure>
 
       <h2 className="flex gap-0">
-          №
-          {onePokemonData.order}
+        №
+        {onePokemonData.order}
       </h2>
 
       <h1 className="mb-3 font-semibold capitalize">
@@ -47,7 +50,7 @@ const PokemonCard = async ({ data }) => {
           )
         })}
       </div>
-    </section>
+    </Link>
   );
 }
 

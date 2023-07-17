@@ -1,9 +1,15 @@
-import React from 'react';
+import Link from 'next/link';
 
-const Page = () => {
+const Page = ({ params, searchParams }) => {
   return (
-    <div className="text-white bg-red-950">
-      ASIDE POKEMON
+    <div className="">
+      <div>
+        <Link href="/pokedex">
+          go back
+        </Link>
+      </div>
+
+      ASIDE POKEMON {params.slug}
     </div>
   );
 }
