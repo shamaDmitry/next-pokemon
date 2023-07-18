@@ -13,20 +13,22 @@ async function getData(url) {
 
 const PokemonCard = async ({ data }) => {
   const onePokemonData = await getData(data.url)
-  console.log('onePokemonData', onePokemonData);
 
   return (
     <Link
       href={`/pokedex/${onePokemonData.id}`}
       className="flex flex-col items-center justify-center p-8 bg-white border shadow-xl rounded-xl"
     >
-      <figure>
+      <figure
+        className="flex flex-col items-center justify-end h-12 mb-4"
+      >
         <Image
-          width={100}
-          height={100}
+          width={1}
+          height={1}
+          className="w-auto"
           priority={true}
-          src={onePokemonData.sprites.front_default}
-          alt=""
+          src={onePokemonData.sprites.versions['generation-v']['black-white'].animated.front_default}
+          alt={onePokemonData.name}
         />
       </figure>
 
