@@ -1,7 +1,5 @@
-const Page = async () => {
-  return (
-    <h1>Placeholder</h1>
-  );
+const Page = () => {
+  return null;
 }
 
 export default Page;

@@ -1,32 +1,28 @@
 import Ability from '@/components/core/pokemon/Ability';
+import AbilityList from '@/components/core/pokemon/AbilityList';
 import CardTitle from '@/components/core/pokemon/CardTitle';
+import Paginator from '@/components/core/pokemon/Paginator';
 import Stats from '@/components/core/pokemon/Stats';
 import { API_URL } from '@/lib/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 
-async function getPokemonData(slug) {
-  const res = await fetch(`${API_URL}/pokemon/${slug}`)
-  // const resAbility = await fetch(`${API_URL}/ability/${slug}`)
-  const data = res.json();
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-
-  return data;
+async function getData(slug) {
+  const res = await fetch(`${API_URL}/pokemon/${slug}`);
+  return res.json()
 }
 
 const Page = async ({ params, searchParams }) => {
-  const data = await getPokemonData(params.slug)
+  const data = await getData(params.slug)
 
   return (
-    <div className="flex flex-col p-4 text-center bg-white rounded-xl">
-      <div>
+    <div className="relative flex flex-col w-full max-w-sm p-4 text-center bg-white rounded-xl">
+      <div className="absolute top-0 right-0">
         <Link
           href="/pokedex"
-          className="inline-flex p-2 border"
+          className="inline-flex p-2"
         >
-          go back
+          X
         </Link>
       </div>
 
@@ -34,7 +30,7 @@ const Page = async ({ params, searchParams }) => {
         <Image
           width={1}
           height={1}
-          className="w-auto"
+          className="w-auto mx-auto"
           priority={true}
           src={data.sprites.other.dream_world.front_default}
           alt={data.name}
@@ -55,7 +51,7 @@ const Page = async ({ params, searchParams }) => {
         />
 
         <div className="grid grid-cols-2 gap-4">
-          {/* {data.abilities.map((item, index) => {
+          {data.abilities.map((item, index) => {
             return (
               <Ability
                 key={index}
@@ -63,7 +59,7 @@ const Page = async ({ params, searchParams }) => {
                 url={item.ability.url}
               />
             )
-          })} */}
+          })}
         </div>
       </div>
 
@@ -102,10 +98,8 @@ const Page = async ({ params, searchParams }) => {
           text="stats"
         />
 
-        <div className="flex justify-center gap-x-2">
-          stats
-
-          {/* {data?.stats?.map((stat, index) => {
+        {/* <div className="flex justify-center gap-x-2">
+          {data.stats.map((stat, index) => {
             return (
               <Stats
                 key={index}
@@ -113,13 +107,13 @@ const Page = async ({ params, searchParams }) => {
                 type={stat.stat.name}
               />
             )
-          })} */}
-        </div>
+          })}
+        </div> */}
       </div>
 
-      {/* <div>
+      <div>
         <Paginator></Paginator>
-      </div> */}
+      </div>
     </div>
   );
 }

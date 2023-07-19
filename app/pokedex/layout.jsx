@@ -5,9 +5,9 @@ import Input from '@/components/core/atoms/Input';
 import SearchInput from '@/components/core/atoms/SearchInput';
 import PokemonList from '@/components/PokedexPage/PokemonList';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, params }) => {
   return (
-    <div className="flex gap-8">
+    <div className="flex items-start gap-8">
       <div className="w-full">
         <SearchInput></SearchInput>
 
@@ -35,9 +35,7 @@ const Layout = ({ children }) => {
         <PokemonList />
       </div>
 
-      <div className="w-full max-w-sm">
-        {children}
-      </div>
+      {children}
     </div>
   );
 }
