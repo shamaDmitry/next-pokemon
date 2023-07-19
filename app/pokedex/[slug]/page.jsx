@@ -1,19 +1,19 @@
 import Ability from '@/components/core/pokemon/Ability';
 import CardTitle from '@/components/core/pokemon/CardTitle';
-import Paginator from '@/components/core/pokemon/Paginator';
 import Stats from '@/components/core/pokemon/Stats';
 import { API_URL } from '@/lib/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 
-async function getPokemonData(params) {
-  const res = await fetch(`${API_URL}/pokemon/${params}`)
-  const resAbility = await fetch(`${API_URL}/ability/${params}`)
-
+async function getPokemonData(slug) {
+  const res = await fetch(`${API_URL}/pokemon/${slug}`)
+  // const resAbility = await fetch(`${API_URL}/ability/${slug}`)
+  const data = res.json();
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
-  return res.json()
+
+  return data;
 }
 
 const Page = async ({ params, searchParams }) => {
@@ -55,15 +55,15 @@ const Page = async ({ params, searchParams }) => {
         />
 
         <div className="grid grid-cols-2 gap-4">
-          {data.abilities.map(item => {
+          {/* {data.abilities.map((item, index) => {
             return (
               <Ability
-                key={item.id}
+                key={index}
                 name={item.ability.name}
                 url={item.ability.url}
               />
             )
-          })}
+          })} */}
         </div>
       </div>
 
@@ -103,21 +103,23 @@ const Page = async ({ params, searchParams }) => {
         />
 
         <div className="flex justify-center gap-x-2">
-          {data.stats.map(stat => {
+          stats
+
+          {/* {data?.stats?.map((stat, index) => {
             return (
               <Stats
-                key={stat.stat.name}
+                key={index}
                 value={stat.base_stat}
                 type={stat.stat.name}
               />
             )
-          })}
+          })} */}
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <Paginator></Paginator>
-      </div>
+      </div> */}
     </div>
   );
 }
