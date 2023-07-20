@@ -4,6 +4,10 @@
 
 @import url('tippy.js/dist/tippy.css');
 
+* {
+  outline: none;
+}
+
 body {
   background-color: #F5F5F5;
 }

@@ -1,19 +1,27 @@
 import Ability from '@/components/core/pokemon/Ability';
-import AbilityList from '@/components/core/pokemon/AbilityList';
 import CardTitle from '@/components/core/pokemon/CardTitle';
 import Paginator from '@/components/core/pokemon/Paginator';
 import Stats from '@/components/core/pokemon/Stats';
 import { API_URL } from '@/lib/constants';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 
 async function getData(slug) {
-  const res = await fetch(`${API_URL}/pokemon/${slug}`);
-  return res.json()
+  const res = await fetch(`${API_URL}/pokemon/${slug}`, { cache: 'no-store' });
+
+  if (res.ok) return res.json()
+
+  return null;
 }
 
 const Page = async ({ params, searchParams }) => {
   const data = await getData(params.slug)
+  const prevData = await getData(Number(params.slug) - 1)
+  const nextData = await getData(Number(params.slug) + 1)
+
+  console.log('prevData', prevData);
+  console.log('nextData', nextData);
 
   return (
     <div className="relative flex flex-col w-full max-w-sm p-4 text-center bg-white rounded-xl">
@@ -22,7 +30,9 @@ const Page = async ({ params, searchParams }) => {
           href="/pokedex"
           className="inline-flex p-2"
         >
-          X
+          <XMarkIcon
+            className="w-6 h-6"
+          />
         </Link>
       </div>
 
@@ -98,7 +108,7 @@ const Page = async ({ params, searchParams }) => {
           text="stats"
         />
 
-        {/* <div className="flex justify-center gap-x-2">
+        <div className="flex justify-center gap-x-2">
           {data.stats.map((stat, index) => {
             return (
               <Stats
@@ -108,11 +118,14 @@ const Page = async ({ params, searchParams }) => {
               />
             )
           })}
-        </div> */}
+        </div>
       </div>
 
       <div>
-        <Paginator></Paginator>
+        <Paginator
+          prevItem={prevData}
+          nextItem={nextData}
+        />
       </div>
     </div>
   );

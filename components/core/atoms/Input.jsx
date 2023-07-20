@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Input = () => {
+const Input = ({ className, type = "text" }) => {
   return (
-    <div>
-      <input type="text" className="border" />
-    </div>
+    <input
+      type={type}
+      className={`${className} p-4 border rounded-lg bg-transparent appearance-none`}
+    />
   );
 }
 

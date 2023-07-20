@@ -2,7 +2,7 @@ import { API_URL } from "@/lib/constants";
 import PokemonCard from "./PokemonCard";
 
 async function getData() {
-  const res = await fetch(`${API_URL}/pokemon`);
+  const res = await fetch(`${API_URL}/pokemon?offset=0&limit=12`);
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')

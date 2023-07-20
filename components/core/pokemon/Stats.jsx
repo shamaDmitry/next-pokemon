@@ -16,19 +16,20 @@ const ToolTipContent = (type) => <span className="font-bold capitalize">{type}</
 
 const Stats = ({ value, type }) => {
   return (
-    <Tippy content={ToolTipContent(type)}>
-      <div className="flex flex-col items-center">
-        <div
-          className={classNames(`text-white cursor-help flex flex-col font-bold text-sm items-center justify-center w-10 h-10 p-2 border rounded-full ${colorMap[type]}`)}
-        >
-          {value}
-        </div>
-
-        <div className="mt-1 text-sm font-medium capitalize md:hidden">
-          {type}
-        </div>
+    // <Tippy content={ToolTipContent(type)}>
+    <div className="flex flex-col items-center">
+      <div
+        title={type}
+        className={classNames(`text-white cursor-help flex flex-col font-bold text-sm items-center justify-center w-10 h-10 p-2 border rounded-full ${colorMap[type]}`)}
+      >
+        {value}
       </div>
-    </Tippy>
+
+      <div className="mt-1 text-sm font-medium capitalize md:hidden">
+        {type}
+      </div>
+    </div>
+    // </Tippy>
   );
 }
 
