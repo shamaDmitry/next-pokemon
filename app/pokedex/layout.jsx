@@ -1,9 +1,11 @@
 import Button from '@/components/core/atoms/Button';
+import CustomCombobox from '@/components/core/atoms/CustomCombobox';
 import Dropdown from '@/components/core/atoms/Dropdown';
 import Filter from '@/components/core/atoms/Filter';
 import Input from '@/components/core/atoms/Input';
 import SearchInput from '@/components/core/atoms/SearchInput';
 import PokemonList from '@/components/PokedexPage/PokemonList';
+import { API_URL } from '@/lib/constants';
 import { ArrowPathIcon, StopCircleIcon } from '@heroicons/react/24/solid';
 
 const Layout = ({ children, params }) => {
@@ -32,10 +34,21 @@ const Layout = ({ children, params }) => {
         </div>
 
         <div className="flex gap-2 mb-10">
-          <Dropdown
+          <CustomCombobox />
+
+          {/* <Dropdown
             prependIcon={<StopCircleIcon />}
             placeholder="type"
-          />
+            dataUrl={`${API_URL}/type`}
+          /> */}
+
+          {/* <Dropdown
+            prependIcon={<StopCircleIcon />}
+            placeholder="ability"
+            dataUrl={`${API_URL}/ability`}
+          /> */}
+
+          {/*           
           <Dropdown
             prependIcon={<StopCircleIcon />}
             placeholder="weaknesses"
@@ -54,7 +67,7 @@ const Layout = ({ children, params }) => {
           <Dropdown
             prependIcon={<StopCircleIcon />}
             placeholder="weight"
-          />
+          /> */}
 
           <Button
             icon={<ArrowPathIcon className="w-4 h-4 text-white" aria-hidden="true" />} />

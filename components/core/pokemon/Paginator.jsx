@@ -49,8 +49,8 @@ const Paginator = ({ prevItem, nextItem }) => {
 
   //   return () => { };
   // }, [offset, limit]);
-  console.log(prevItem);
-  console.log(nextItem);
+  // console.log(prevItem);
+  // console.log(nextItem);
 
   return (
     <div className="flex justify-between gap-4 my-4">
