@@ -15,8 +15,5 @@ export async function GET(request) {
     console.log("error", e);
   }
 
-
-  // return NextResponse.json({ data })
-
   return NextResponse.json({ "test": "TEST" }, { status: 404 })
 }

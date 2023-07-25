@@ -5,12 +5,15 @@ import Filter from '@/components/core/atoms/Filter';
 import Input from '@/components/core/atoms/Input';
 import SearchInput from '@/components/core/atoms/SearchInput';
 import PokemonList from '@/components/PokedexPage/PokemonList';
+import FiltersList from '@/components/PokedexPage/FiltersList';
 import { API_URL } from '@/lib/constants';
 import { ArrowPathIcon, StopCircleIcon } from '@heroicons/react/24/solid';
 
 const Layout = ({ children, params }) => {
   return (
     <div className="flex items-start gap-8">
+
+
       <div className="w-full">
         <SearchInput />
 
@@ -33,8 +36,11 @@ const Layout = ({ children, params }) => {
           </div>
         </div>
 
+        <FiltersList />
+
         <div className="flex gap-2 mb-10">
-          <CustomCombobox />
+          {/* <FiltersList /> */}
+          {/* <CustomCombobox /> */}
 
           {/* <Dropdown
             prependIcon={<StopCircleIcon />}
@@ -69,8 +75,7 @@ const Layout = ({ children, params }) => {
             placeholder="weight"
           /> */}
 
-          <Button
-            icon={<ArrowPathIcon className="w-4 h-4 text-white" aria-hidden="true" />} />
+
         </div>
 
         <PokemonList />

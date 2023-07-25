@@ -8,15 +8,15 @@ import { fetcher } from '@/lib/fetcher';
 import { useDropdownList } from '@/hooks/useDropdownList';
 
 const Dropdown = ({ prependIcon, placeholder, dataUrl }) => {
-  const limit = 999;
-  const { data: options, error, isLoading } = useDropdownList(`${dataUrl}?limit=${limit}`);
-  if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
+  // const limit = 999;
+  // const { data: options, error, isLoading } = useDropdownList(`${dataUrl}?limit=${limit}`);
+  // if (error) return <div>failed to load</div>
+  // if (isLoading) return <div>loading...</div>
   // const copyData = [...options]
-  console.log(options);
+  // console.log(options);
 
-  const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(options)
+  // const [query, setQuery] = useState("");
+  // const [selected, setSelected] = useState(options)
 
   // useEffect(() => {
   //   setSelected(data?.results)
