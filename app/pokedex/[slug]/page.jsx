@@ -20,9 +20,6 @@ const Page = async ({ params, searchParams }) => {
   const prevData = await getData(Number(params.slug) - 1)
   const nextData = await getData(Number(params.slug) + 1)
 
-  console.log('prevData', prevData);
-  console.log('nextData', nextData);
-
   return (
     <div className="relative flex flex-col w-full max-w-sm p-4 text-center bg-white rounded-xl">
       <div className="absolute top-0 right-0">

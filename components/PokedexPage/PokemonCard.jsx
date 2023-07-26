@@ -1,18 +1,22 @@
+"use client"
+
 import Tag from "../core/atoms/Tag";
 import Image from "next/image";
 import Link from "next/link";
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
-async function getData(url) {
-  const res = await fetch(url)
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
 
-  return res.json()
-}
+const PokemonCard = ({ data }) => {
+  const { data: onePokemonData, isLoading, error } = useSWR(data.url, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  })
 
-const PokemonCard = async ({ data }) => {
-  const onePokemonData = await getData(data.url)
+  if (isLoading) return "Loading"
+
+  if (error) return "Error"
 
   return (
     <Link

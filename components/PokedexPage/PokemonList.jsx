@@ -1,22 +1,27 @@
-import { API_URL } from "@/lib/constants";
+"use client"
+
+import { useEffect, useState } from "react";
 import PokemonCard from "./PokemonCard";
 
-async function getData() {
-  const res = await fetch(`${API_URL}/pokemon?offset=0&limit=12`);
+import usePokemonStore from "@/store/pokemonStore";
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
+const PokemonList = () => {
+  const [limit, setLimit] = useState(9);
 
-  return res.json()
-}
+  const [pokemons, getAllPokemons, setPokemons] = usePokemonStore(state => [
+    state.pokemons,
+    state.getAllPokemons,
+    state.setPokemons
+  ])
 
-const PokemonList = async () => {
-  const pokemonData = await getData();
+  useEffect(() => {
+    getAllPokemons(limit)
+    return () => { };
+  }, [getAllPokemons, limit]);
 
   return (
     <section className="grid grid-cols-3 gap-4">
-      {pokemonData.results.map(item => {
+      {pokemons.map(item => {
         return (
           <PokemonCard
             key={item.name}

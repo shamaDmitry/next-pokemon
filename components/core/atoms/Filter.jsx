@@ -3,20 +3,35 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import usePokemonStore from '@/store/pokemonStore';
 
-const people = [
+const menuItem = [
   { name: 'Ascending' },
   { name: 'Descending' },
 ]
 
 const Filter = () => {
-  const [selected, setSelected] = useState(people[0])
+  const [setPokemons] = usePokemonStore(state => [
+    state.setPokemons
+  ])
+
+  const [selected, setSelected] = useState(menuItem[0])
+
+  const handleSort = async (direction) => {
+    const res = await fetch(`/api/sort?direction=${direction.name.toLowerCase()}`)
+    const resData = await res.json();
+
+    setPokemons(resData.data);
+  }
 
   return (
     <Listbox
       className="w-full"
       value={selected}
-      onChange={setSelected}
+      onChange={(item) => {
+        setSelected(item);
+        handleSort(item);
+      }}
     >
       <div className="relative">
         <Listbox.Button
@@ -43,14 +58,14 @@ const Filter = () => {
           <Listbox.Options
             className="absolute z-[100] w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
-            {people.map((person, personIdx) => (
+            {menuItem.map((menuItem, menuItemIdx) => (
               <Listbox.Option
-                key={personIdx}
+                key={menuItemIdx}
                 className={({ active }) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
                   }`
                 }
-                value={person}
+                value={menuItem}
               >
                 {({ selected }) => (
                   <>
@@ -58,7 +73,7 @@ const Filter = () => {
                       className={`block truncate ${selected ? 'font-medium' : 'font-normal'
                         }`}
                     >
-                      {person.name}
+                      {menuItem.name}
                     </span>
                     {selected ? (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

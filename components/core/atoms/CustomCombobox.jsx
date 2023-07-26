@@ -4,10 +4,11 @@ import { Fragment, useEffect, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { API_URL } from '@/lib/constants';
+import { debounce } from 'lodash';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
-export default function CustomCombobox({ value, setFilter, dataUrl, prependIcon, label, onChange }) {
+export default function CustomCombobox({ label, prependIcon, dataUrl, setFilter }) {
   const [menuItems, setMenuItems] = useState([]);
-
   const [selected, setSelected] = useState({ name: "", url: "" });
   const [query, setQuery] = useState('');
 
@@ -20,12 +21,12 @@ export default function CustomCombobox({ value, setFilter, dataUrl, prependIcon,
   }, [dataUrl])
 
   useEffect(() => {
-    setSelected(prevState => {
-      return {
-        ...prevState,
-        ...menuItems[0]
-      }
-    })
+    // setSelected(prevState => {
+    //   return {
+    //     ...prevState,
+    //     ...menuItems[0]
+    //   }
+    // })
   }, [menuItems])
 
   const filteredPeople =
@@ -38,17 +39,16 @@ export default function CustomCombobox({ value, setFilter, dataUrl, prependIcon,
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
 
-  const handleChange = (item) => {
-    setSelected(item);
-    onChange(item)
-  }
-
   return (
     <Combobox
-      value={value}
+      value={selected}
+      nullable
       onChange={(item) => {
-        setFilter(prevState => ({ ...prevState, ...item }));
-        handleChange(item);
+        setSelected(item);
+
+        setFilter(
+          prevState => ({ ...prevState, ...item })
+        );
       }}
     >
       <div className="relative">
@@ -62,16 +62,28 @@ export default function CustomCombobox({ value, setFilter, dataUrl, prependIcon,
           </Combobox.Label>
 
           <Combobox.Input
-            className="w-full py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 border-none focus:ring-0"
-            displayValue={(value) => value.name}
+            className="w-full py-[10px] pl-3 pr-10 text-sm leading-5 text-gray-900 border-none focus:ring-0"
+            displayValue={(value) => value?.name}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+          <Combobox.Button className="flex items-center pr-6">
             <ChevronUpDownIcon
               className="w-5 h-5 text-gray-400"
               aria-hidden="true"
             />
           </Combobox.Button>
+
+          {selected.name &&
+            <button
+              className="absolute right-0 flex p-2 -translate-y-1/2 top-1/2"
+              onClick={() => {
+                setFilter({})
+                setSelected({})
+              }}
+            >
+              <TrashIcon className="w-4 h-4 text-red-500" aria-hidden="true" />
+            </button>}
+
         </div>
         <Transition
           as={Fragment}
