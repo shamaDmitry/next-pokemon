@@ -1,10 +1,13 @@
-import React from 'react';
+"use client"
 
-const Input = ({ className, type = "text" }) => {
+const Input = ({ className, type = "text", value, onChange }) => {
   return (
     <input
       type={type}
-      className={`${className} p-4 border rounded-lg bg-transparent appearance-none`}
+      min={type === "number" ? 1 : null}
+      value={value}
+      onChange={onChange}
+      className={`${className} py-2 px-4 bg-white border rounded-lg bg-transparent appearance-none`}
     />
   );
 }

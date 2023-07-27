@@ -1,17 +1,21 @@
 "use client";
 
 import { API_URL } from "@/lib/constants";
+import usePokemonStore from "@/store/pokemonStore";
 import { StopCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
 function SearchInput() {
-  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = usePokemonStore(state => [
+    state.searchTerm,
+    state.setSearchTerm
+  ])
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(search);
-    fetch(`api/search?term=${search}`);
+    // console.log(search);
+    // fetch(`api/search?term=${search}`);
   }
 
   return (
@@ -20,7 +24,8 @@ function SearchInput() {
       onSubmit={handleSubmit}
     >
       <input
-        onChange={(e) => setSearch(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="w-full px-4 py-4 pr-12 border rounded-lg shadow-lg"
         type="text" placeholder="Search your Pokemon!"
       />

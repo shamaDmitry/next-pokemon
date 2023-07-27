@@ -11,14 +11,15 @@ const menuItem = [
 ]
 
 const Filter = () => {
-  const [setPokemons] = usePokemonStore(state => [
-    state.setPokemons
+  const [setPokemons, limit] = usePokemonStore(state => [
+    state.setPokemons,
+    state.limit,
   ])
 
   const [selected, setSelected] = useState(menuItem[0])
 
   const handleSort = async (direction) => {
-    const res = await fetch(`/api/sort?direction=${direction.name.toLowerCase()}`)
+    const res = await fetch(`/api/sort?direction=${direction.name.toLowerCase()}&limit=${limit}`)
     const resData = await res.json();
 
     setPokemons(resData.data);
